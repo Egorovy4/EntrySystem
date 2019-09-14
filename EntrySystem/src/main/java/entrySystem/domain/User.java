@@ -12,50 +12,67 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "users")
 public class User {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	
+
 	@Column(name = "first_name")
 	private String firstName;
 
 	@Column(name = "second_name")
 	private String secondName;
-	
+
 	@Column
 	private Integer age;
-	
+
 	@Column
 	private String email;
-	
+
 	@Column
 	private String password;
-	
+
+	@Column(name = "password_confirm")
+	private String passwordConfirm;
+
 	@Enumerated(EnumType.STRING)
 	private UserRoles role;
 
 	public User() {
 	}
 
-	public User(String firstName, String secondName, Integer age, String email, String password, UserRoles role) {
+	public User(String firstName, String secondName, Integer age, String email, String password, String passwordConfirm,
+			UserRoles role) {
 		this.firstName = firstName;
 		this.secondName = secondName;
 		this.age = age;
 		this.email = email;
 		this.password = password;
+		this.passwordConfirm = passwordConfirm;
 		this.role = role;
 	}
 
 	public User(Integer id, String firstName, String secondName, Integer age, String email, String password,
-			UserRoles role) {
+			String passwordConfirm, UserRoles role) {
 		this.id = id;
 		this.firstName = firstName;
 		this.secondName = secondName;
 		this.age = age;
 		this.email = email;
 		this.password = password;
+		this.passwordConfirm = passwordConfirm;
 		this.role = role;
+	}
+
+	public User(User user) {
+		this.id = user.id;
+		this.firstName = user.firstName;
+		this.secondName = user.secondName;
+		this.age = user.age;
+		this.email = user.email;
+		this.password = user.password;
+		this.passwordConfirm = user.passwordConfirm;
+		this.role = user.role;
 	}
 
 	public Integer getId() {
@@ -106,6 +123,14 @@ public class User {
 		this.password = password;
 	}
 
+	public String getPasswordConfirm() {
+		return passwordConfirm;
+	}
+
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
+	}
+
 	public UserRoles getRole() {
 		return role;
 	}
@@ -123,6 +148,7 @@ public class User {
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((passwordConfirm == null) ? 0 : passwordConfirm.hashCode());
 		result = prime * result + ((role == null) ? 0 : role.hashCode());
 		result = prime * result + ((secondName == null) ? 0 : secondName.hashCode());
 		return result;
@@ -162,6 +188,11 @@ public class User {
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
+		if (passwordConfirm == null) {
+			if (other.passwordConfirm != null)
+				return false;
+		} else if (!passwordConfirm.equals(other.passwordConfirm))
+			return false;
 		if (role != other.role)
 			return false;
 		if (secondName == null) {
@@ -175,6 +206,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", secondName=" + secondName + ", age=" + age
-				+ ", email=" + email + ", password=" + password + ", role=" + role + "]";
+				+ ", email=" + email + ", password=" + password + ", passwordConfirm=" + passwordConfirm + ", role="
+				+ role + "]";
 	}
 }

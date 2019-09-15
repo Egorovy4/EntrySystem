@@ -30,7 +30,7 @@ public class UserController {
             return "registration";
         }
         userService.save(userForm);
-        return "redirect:/home";
+        return "redirect:/login";
     }
 
     @RequestMapping(value = {"/", "/login"}, method = RequestMethod.GET)

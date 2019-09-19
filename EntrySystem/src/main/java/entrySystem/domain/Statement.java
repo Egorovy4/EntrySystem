@@ -1,54 +1,56 @@
 package entrySystem.domain;
 
-import javax.persistence.Column;
+import java.util.List;
+
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "statement")
 public class Statement {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "user_id", referencedColumnName = "id")
 	private User user;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "faculty_id", referencedColumnName = "id")
 	private Faculty faculty;
+
+	@ElementCollection
+	private List<Double> marks;
 	
-	@Enumerated(EnumType.STRING)
-	private Subjects subject;
+	@Transient
+	private String userEmail;
 	
-	@Column
-	private double mark;
+	@Transient
+	private Integer facultyId;
 
 	public Statement() {
 	}
 
-	public Statement(User user, Faculty faculty, Subjects subject, double mark) {
+	public Statement(User user, Faculty faculty, List<Double> marks) {
 		this.user = user;
 		this.faculty = faculty;
-		this.subject = subject;
-		this.mark = mark;
+		this.marks = marks;
 	}
 
-	public Statement(Integer id, User user, Faculty faculty, Subjects subject, double mark) {
+	public Statement(Integer id, User user, Faculty faculty, List<Double> marks) {
 		this.id = id;
 		this.user = user;
 		this.faculty = faculty;
-		this.subject = subject;
-		this.mark = mark;
+		this.marks = marks;
 	}
 
 	public Integer getId() {
@@ -75,20 +77,28 @@ public class Statement {
 		this.faculty = faculty;
 	}
 
-	public Subjects getSubject() {
-		return subject;
+	public List<Double> getMarks() {
+		return marks;
 	}
 
-	public void setSubject(Subjects subject) {
-		this.subject = subject;
+	public void setMarks(List<Double> marks) {
+		this.marks = marks;
 	}
 
-	public double getMark() {
-		return mark;
+	public String getUserEmail() {
+		return userEmail;
 	}
 
-	public void setMark(double mark) {
-		this.mark = mark;
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+
+	public Integer getFacultyId() {
+		return facultyId;
+	}
+
+	public void setFacultyId(Integer facultyId) {
+		this.facultyId = facultyId;
 	}
 
 	@Override
@@ -97,10 +107,7 @@ public class Statement {
 		int result = 1;
 		result = prime * result + ((faculty == null) ? 0 : faculty.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		long temp;
-		temp = Double.doubleToLongBits(mark);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + ((subject == null) ? 0 : subject.hashCode());
+		result = prime * result + ((marks == null) ? 0 : marks.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
@@ -124,9 +131,10 @@ public class Statement {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (Double.doubleToLongBits(mark) != Double.doubleToLongBits(other.mark))
-			return false;
-		if (subject != other.subject)
+		if (marks == null) {
+			if (other.marks != null)
+				return false;
+		} else if (!marks.equals(other.marks))
 			return false;
 		if (user == null) {
 			if (other.user != null)
@@ -138,7 +146,6 @@ public class Statement {
 
 	@Override
 	public String toString() {
-		return "Statement [id=" + id + ", user=" + user + ", faculty=" + faculty + ", subject=" + subject
-				+ ", mark=" + mark + "]";
+		return "Statement [id=" + id + ", user=" + user + ", faculty=" + faculty + ", marks=" + marks + "]";
 	}
 }

@@ -19,9 +19,9 @@ public class Faculty {
 	private Integer id;
 	
 	@Column
-	private FacultyNames name;
+	private String name;
 	
-	@Column
+	@Column(name = "quantity_of_students")
 	private Integer quantityOfStudents;
 	
 	@ElementCollection
@@ -30,13 +30,13 @@ public class Faculty {
 	public Faculty() {
 	}
 
-	public Faculty(FacultyNames name, Integer quantityOfStudents, List<Subjects> subjects) {
+	public Faculty(String name, Integer quantityOfStudents, List<Subjects> subjects) {
 		this.name = name;
 		this.quantityOfStudents = quantityOfStudents;
 		this.subjects = subjects;
 	}
 
-	public Faculty(Integer id, FacultyNames name, Integer quantityOfStudents, List<Subjects> subjects) {
+	public Faculty(Integer id, String name, Integer quantityOfStudents, List<Subjects> subjects) {
 		this.id = id;
 		this.name = name;
 		this.quantityOfStudents = quantityOfStudents;
@@ -51,11 +51,11 @@ public class Faculty {
 		this.id = id;
 	}
 
-	public FacultyNames getName() {
+	public String getName() {
 		return name;
 	}
 
-	public void setName(FacultyNames name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 

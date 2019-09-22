@@ -13,7 +13,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Rating</title>
+<title>Registered Entrants</title>
 
 <link href="${contextPath}/resources/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -26,7 +26,8 @@
 		<h3 class="w3-bar-item">Menu</h3>
 		<a href="/home" class="w3-bar-item w3-button">Home</a> <a
 			href="/create-faculty" class="w3-bar-item w3-button">Create
-			Faculty</a> <a href="/rating" class="w3-bar-item w3-button">Rating</a>
+			Faculty</a> <a href="/registeredEntrants" class="w3-bar-item w3-button">Registered
+			Entrants</a>
 	</div>
 
 	<!-- Page Content -->
@@ -49,23 +50,34 @@
 			</c:if>
 		</div>
 
-		<c:if test="${not empty statements}">
+		<c:if test="${not empty registeredEntrants}">
 			<table>
 				<tr>
+					<th>Photo</th>
 					<th>First name</th>
 					<th>Second name</th>
 					<th>Email</th>
 					<th>Faculty name</th>
-					<th>Marks</th>
+					<!-- 					<th>Marks</th> -->
 				</tr>
-				<c:forEach items="${statements}" var="currentStatement">
+				<c:forEach items="${registeredEntrants}"
+					var="currentRegisteredEntrant">
 					<tr>
-						<td>${currentStatement.user.firstName}</td>
-						<td>${currentStatement.user.secondName}</td>
-						<td>${currentStatement.user.email}</td>
-						<td>${currentStatement.faculty.name}</td>
-
-						<td>${currentStatement.faculty.subjects}<br>${currentStatement.marks}</td>
+						<td rowspan="2"><img src="data:image/png;base64,${currentRegisteredEntrant.encodedEntrantImage}" width="80" height="80" /></td>
+						<td rowspan="2">${currentRegisteredEntrant.user.firstName}</td>
+						<td rowspan="2">${currentRegisteredEntrant.user.secondName}</td>
+						<td rowspan="2">${currentRegisteredEntrant.user.email}</td>
+						<td rowspan="2">${currentRegisteredEntrant.faculty.name}</td>
+						<c:forEach items="${currentRegisteredEntrant.faculty.subjects}"
+							var="currentSubject">
+							<td>${currentSubject}</td>
+						</c:forEach>
+					</tr>
+					<tr>
+						<c:forEach items="${currentRegisteredEntrant.marks}"
+							var="currentMark">
+							<td>${currentMark}</td>
+						</c:forEach>
 					</tr>
 				</c:forEach>
 			</table>
@@ -77,4 +89,13 @@
 	<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 </body>
 
+<style>
+table {
+	border-collapse: collapse;
+}
+
+table, th, td {
+	border: 1px solid black;
+}
+</style>
 </html>

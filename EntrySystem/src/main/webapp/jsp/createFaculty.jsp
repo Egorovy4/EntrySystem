@@ -23,7 +23,7 @@
 			<h3 class="w3-bar-item">Menu</h3>
 			<a href="/home" class="w3-bar-item w3-button">Home</a> <a
 				href="/create-periodical" class="w3-bar-item w3-button">Create
-				faculty</a> <a href="/rating" class="w3-bar-item w3-button">Rating</a>
+				faculty</a> <a href="/registeredEntrants" class="w3-bar-item w3-button">Registered Entrants</a>
 		</div>
 
 		<!-- Page Content -->

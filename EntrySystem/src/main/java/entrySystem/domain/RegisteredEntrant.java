@@ -8,13 +8,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name = "statement")
-public class Statement {
+@Table(name = "registered_entrants")
+public class RegisteredEntrant {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,23 +31,26 @@ public class Statement {
 
 	@ElementCollection
 	private List<Double> marks;
-	
+
+	@Lob
+	private String encodedEntrantImage;
+
 	@Transient
 	private String userEmail;
-	
+
 	@Transient
 	private Integer facultyId;
 
-	public Statement() {
+	public RegisteredEntrant() {
 	}
 
-	public Statement(User user, Faculty faculty, List<Double> marks) {
+	public RegisteredEntrant(User user, Faculty faculty, List<Double> marks) {
 		this.user = user;
 		this.faculty = faculty;
 		this.marks = marks;
 	}
 
-	public Statement(Integer id, User user, Faculty faculty, List<Double> marks) {
+	public RegisteredEntrant(Integer id, User user, Faculty faculty, List<Double> marks) {
 		this.id = id;
 		this.user = user;
 		this.faculty = faculty;
@@ -85,6 +89,14 @@ public class Statement {
 		this.marks = marks;
 	}
 
+	public String getEncodedEntrantImage() {
+		return encodedEntrantImage;
+	}
+
+	public void setEncodedEntrantImage(String encodedEntrantImage) {
+		this.encodedEntrantImage = encodedEntrantImage;
+	}
+
 	public String getUserEmail() {
 		return userEmail;
 	}
@@ -120,7 +132,7 @@ public class Statement {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Statement other = (Statement) obj;
+		RegisteredEntrant other = (RegisteredEntrant) obj;
 		if (faculty == null) {
 			if (other.faculty != null)
 				return false;

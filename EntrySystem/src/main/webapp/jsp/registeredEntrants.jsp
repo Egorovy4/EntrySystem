@@ -1,4 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
@@ -50,32 +53,43 @@
 			</c:if>
 		</div>
 
+
 		<c:if test="${not empty registeredEntrants}">
 			<table>
+
 				<tr>
 					<th>Photo</th>
 					<th>First name</th>
 					<th>Second name</th>
 					<th>Email</th>
 					<th>Faculty name</th>
-					<!-- 					<th>Marks</th> -->
+					<th colspan="4">Marks</th>
+					<th>Action</th>
 				</tr>
-				<c:forEach items="${registeredEntrants}"
-					var="currentRegisteredEntrant">
+				<c:forEach items="${registeredEntrants}" var="currentRegisteredEntrant">
 					<tr>
 						<td rowspan="2"><img src="data:image/png;base64,${currentRegisteredEntrant.encodedEntrantImage}" width="80" height="80" /></td>
 						<td rowspan="2">${currentRegisteredEntrant.user.firstName}</td>
 						<td rowspan="2">${currentRegisteredEntrant.user.secondName}</td>
 						<td rowspan="2">${currentRegisteredEntrant.user.email}</td>
 						<td rowspan="2">${currentRegisteredEntrant.faculty.name}</td>
-						<c:forEach items="${currentRegisteredEntrant.faculty.subjects}"
-							var="currentSubject">
+						
+						<c:forEach items="${currentRegisteredEntrant.faculty.subjects}" var="currentSubject">
 							<td>${currentSubject}</td>
 						</c:forEach>
+						
+						<td rowspan="2">
+							<form:form method="POST" action="${contextPath}/entrantSubmiting">						
+								<input type="hidden" name="facultyId" value="${currentRegisteredEntrant.faculty.id}" />
+								<input type="hidden" name="userId" value="${currentRegisteredEntrant.user.id}" />
+								<input type="hidden" name="entrantId" value="${currentRegisteredEntrant.id}" />
+								<button type="submit">Submit</button>
+							</form:form>
+						</td>
 					</tr>
+					
 					<tr>
-						<c:forEach items="${currentRegisteredEntrant.marks}"
-							var="currentMark">
+						<c:forEach items="${currentRegisteredEntrant.marks}" var="currentMark">
 							<td>${currentMark}</td>
 						</c:forEach>
 					</tr>

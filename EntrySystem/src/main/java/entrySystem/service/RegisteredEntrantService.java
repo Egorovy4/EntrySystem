@@ -25,4 +25,8 @@ public class RegisteredEntrantService {
 	public List<RegisteredEntrant> findAllRegisteredEntrants() {
 		return registeredEntrantRepository.findAll();
 	}
+
+	public void deleteById(Integer id) {
+		registeredEntrantRepository.deleteById(id);
+	}
 }

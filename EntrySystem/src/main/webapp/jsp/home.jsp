@@ -66,6 +66,7 @@
 								<p>${currentSubject}</p>
 							</c:forEach>
 							<a href="entrantRegistration?currentFacultyId=${currentFaculty.id}&currentUserEmail=${pageContext.request.userPrincipal.name}">Choose this faculty</a>
+							<a href="rating?currentFacultyId=${currentFaculty.id}">Show rating</a>
 						</div>
 					</div>
 				</div>

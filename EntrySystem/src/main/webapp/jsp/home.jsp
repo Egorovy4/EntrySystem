@@ -1,5 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
@@ -24,8 +25,11 @@
 	<div class="w3-sidebar w3-light-grey w3-bar-block" style="width: 10%">
 		<h3 class="w3-bar-item">Menu</h3>
 		<a href="/home" class="w3-bar-item w3-button">Home</a>
-		<a href="/create-faculty" class="w3-bar-item w3-button">Create Faculty</a>
-		<a href="/registeredEntrants" class="w3-bar-item w3-button">Registered Entrants</a>
+		
+		<security:authorize access="hasRole('ROLE_ADMIN')">
+			<a href="/create-faculty" class="w3-bar-item w3-button">Create Faculty</a>
+			<a href="/registeredEntrants" class="w3-bar-item w3-button">Registered Entrants</a>
+		</security:authorize>
 	</div>
 
 	<!-- Page Content -->
@@ -65,8 +69,12 @@
 								var="currentSubject">
 								<p>${currentSubject}</p>
 							</c:forEach>
-							<a href="entrantRegistration?currentFacultyId=${currentFaculty.id}&currentUserEmail=${pageContext.request.userPrincipal.name}">Choose this faculty</a>
+							
 							<a href="rating?currentFacultyId=${currentFaculty.id}">Show rating</a>
+							<br>
+							<security:authorize access="hasRole('ROLE_USER')">
+								<a href="entrantRegistration?currentFacultyId=${currentFaculty.id}&currentUserEmail=${pageContext.request.userPrincipal.name}">Choose this faculty</a>
+							</security:authorize>
 						</div>
 					</div>
 				</div>

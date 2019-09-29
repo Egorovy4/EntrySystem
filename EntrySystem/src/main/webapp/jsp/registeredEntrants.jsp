@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -16,28 +16,26 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Registered Entrants</title>
-
-<link href="${contextPath}/resources/css/bootstrap.min.css"
-	rel="stylesheet">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<title><spring:message code='registered_entrants.title' /></title>
 </head>
 
 <body>
 	<!-- Sidebar -->
 	<div class="w3-sidebar w3-light-grey w3-bar-block" style="width: 10%">
-		<h3 class="w3-bar-item">Menu</h3>
-		<a href="/home" class="w3-bar-item w3-button">Home</a>
+		<h3 class="w3-bar-item"><spring:message code='registered_entrants.menu' /></h3>
+		<a href="/home" class="w3-bar-item w3-button"><spring:message code='registered_entrants.home' /></a>
 		<security:authorize access="hasRole('ROLE_ADMIN')">
-			<a href="/create-faculty" class="w3-bar-item w3-button">Create Faculty</a>
-			<a href="/registeredEntrants" class="w3-bar-item w3-button">Registered Entrants</a>
+			<a href="/create-faculty" class="w3-bar-item w3-button"><spring:message code='registered_entrants.create_faculty' /></a>
+			<a href="/registeredEntrants" class="w3-bar-item w3-button"><spring:message code='registered_entrants.registered_entrants' /></a>
 		</security:authorize>
 	</div>
 
 	<!-- Page Content -->
 	<div style="margin-left: 10%">
 		<div class="w3-container w3-teal">
-			<h1>Rating</h1>
+			<h1><spring:message code='registered_entrants.registered_entrants' /></h1>
 		</div>
 
 		<div class="container" style="margin-left: 1%">
@@ -48,8 +46,8 @@
 				</form>
 
 				<h2>
-					Welcome ${pageContext.request.userPrincipal.name} | <a
-						onclick="document.forms['logoutForm'].submit()">Logout</a>
+					<spring:message code='registered_entrants.welcome' /> ${pageContext.request.userPrincipal.name} | <a
+						onclick="document.forms['logoutForm'].submit()"><spring:message code='registered_entrants.logout' /></a>
 				</h2>
 			</c:if>
 		</div>
@@ -59,13 +57,13 @@
 			<table>
 
 				<tr>
-					<th>Photo</th>
-					<th>First name</th>
-					<th>Second name</th>
-					<th>Email</th>
-					<th>Faculty name</th>
-					<th colspan="4">Marks</th>
-					<th>Action</th>
+					<th><spring:message code='registered_entrants.photo' /></th>
+					<th><spring:message code='registered_entrants.first_name' /></th>
+					<th><spring:message code='registered_entrants.second_name' /></th>
+					<th><spring:message code='registered_entrants.email' /></th>
+					<th><spring:message code='registered_entrants.faculty_name' /></th>
+					<th colspan="4"><spring:message code='registered_entrants.marks' /></th>
+					<th><spring:message code='registered_entrants.actions' /></th>
 				</tr>
 				<c:forEach items="${registeredEntrants}" var="currentRegisteredEntrant">
 					<tr>
@@ -76,7 +74,7 @@
 						<td rowspan="2">${currentRegisteredEntrant.faculty.name}</td>
 						
 						<c:forEach items="${currentRegisteredEntrant.faculty.subjects}" var="currentSubject">
-							<td>${currentSubject}</td>
+							<td>${currentSubject.title}</td>
 						</c:forEach>
 						
 						<td rowspan="2">
@@ -84,7 +82,7 @@
 								<input type="hidden" name="facultyId" value="${currentRegisteredEntrant.faculty.id}" />
 								<input type="hidden" name="userId" value="${currentRegisteredEntrant.user.id}" />
 								<input type="hidden" name="entrantId" value="${currentRegisteredEntrant.id}" />
-								<button type="submit">Submit</button>
+								<button type="submit"><spring:message code='registered_entrants.submit' /></button>
 							</form:form>
 						</td>
 					</tr>
@@ -99,9 +97,7 @@
 		</c:if>
 	</div>
 
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 </body>
 
 <style>

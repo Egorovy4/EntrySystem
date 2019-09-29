@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -16,11 +16,9 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Registered Entrants</title>
-
-<link href="${contextPath}/resources/css/bootstrap.min.css"
-	rel="stylesheet">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<title><spring:message code='rating.title' /></title>
 
 <style>
 table {
@@ -37,23 +35,24 @@ th, td, h2 {
 	text-align: center;
 }
 </style>
+
 </head>
 
 <body>
 	<!-- Sidebar -->
 	<div class="w3-sidebar w3-light-grey w3-bar-block" style="width: 10%">
-		<h3 class="w3-bar-item">Menu</h3>
-		<a href="/home" class="w3-bar-item w3-button">Home</a>
+		<h3 class="w3-bar-item"><spring:message code='rating.menu' /></h3>
+		<a href="/home" class="w3-bar-item w3-button"><spring:message code='rating.home' /></a>
 		<security:authorize access="hasRole('ROLE_ADMIN')">
-			<a href="/create-faculty" class="w3-bar-item w3-button">Create Faculty</a>
-			<a href="/registeredEntrants" class="w3-bar-item w3-button">Registered Entrants</a>
+			<a href="/create-faculty" class="w3-bar-item w3-button"><spring:message code='rating.create_faculty' /></a>
+			<a href="/registeredEntrants" class="w3-bar-item w3-button"><spring:message code='rating.registered_entrants' /></a>
 		</security:authorize>
 	</div>
 
 	<!-- Page Content -->
 	<div style="margin-left: 10%">
 		<div class="w3-container w3-teal">
-			<h1>Rating</h1>
+			<h1><spring:message code='rating.rating' /></h1>
 		</div>
 
 		<div class="container" style="margin-left: 1%">
@@ -64,21 +63,21 @@ th, td, h2 {
 				</form>
 
 				<h2>
-					Welcome ${pageContext.request.userPrincipal.name} | <a
-						onclick="document.forms['logoutForm'].submit()">Logout</a>
+					<spring:message code='rating.welcome' /> ${pageContext.request.userPrincipal.name} | <a
+						onclick="document.forms['logoutForm'].submit()"><spring:message code='rating.logout' /></a>
 				</h2>
 			</c:if>
 		</div>
 
-		<h2>Rating of faculty with name ${faculty.name}</h2>
+		<h2><spring:message code='rating.students_rating' /> (${faculty.name})</h2>
 
 		<c:if test="${not empty statements}">
 			<table style="width: 60%">
 				<tr>
-					<th>First name</th>
-					<th>Second name</th>
-					<th colspan="4">Marks</th>
-					<th>Is Accepted?</th>
+					<th><spring:message code='rating.first_name' /></th>
+					<th><spring:message code='rating.second_name' /></th>
+					<th colspan="4"><spring:message code='rating.marks' /></th>
+					<th><spring:message code='rating.is_accepted' /></th>
 				</tr>
 				<c:forEach items="${statements}" var="currentStatement"
 					varStatus="status">
@@ -87,7 +86,7 @@ th, td, h2 {
 						<td rowspan="2">${users[status.index].secondName}</td>
 
 						<c:forEach items="${faculty.subjects}" var="currentSubject">
-							<td>${currentSubject}</td>
+							<td>${currentSubject.title}</td>
 						</c:forEach>
 
 						<td rowspan="2">${accepting[status.index]}</td>

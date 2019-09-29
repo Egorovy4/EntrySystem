@@ -1,6 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
@@ -14,28 +15,27 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 	
-	<title>Home Page</title>
+	<title><spring:message code='home.title' /></title>
 	
-	<link href="${contextPath}/resources/css/bootstrap.min.css"	rel="stylesheet">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 
 <body>
 	<!-- Sidebar -->
 	<div class="w3-sidebar w3-light-grey w3-bar-block" style="width: 10%">
-		<h3 class="w3-bar-item">Menu</h3>
-		<a href="/home" class="w3-bar-item w3-button">Home</a>
+		<h3 class="w3-bar-item"><spring:message code='home.menu' /></h3>
+		<a href="/home" class="w3-bar-item w3-button"><spring:message code='home.home' /></a>
 		
 		<security:authorize access="hasRole('ROLE_ADMIN')">
-			<a href="/create-faculty" class="w3-bar-item w3-button">Create Faculty</a>
-			<a href="/registeredEntrants" class="w3-bar-item w3-button">Registered Entrants</a>
+			<a href="/create-faculty" class="w3-bar-item w3-button"><spring:message code='home.create_faculty' /></a>
+			<a href="/registeredEntrants" class="w3-bar-item w3-button"><spring:message code='home.registered_entrants' /></a>
 		</security:authorize>
 	</div>
 
 	<!-- Page Content -->
 	<div style="margin-left: 10%">
 		<div class="w3-container w3-teal">
-			<h1>Faculties</h1>
+			<h1><spring:message code='home.faculties' /></h1>
 		</div>
 
 		<div class="container" style="margin-left: 1%">
@@ -46,8 +46,8 @@
 				</form>
 
 				<h2>
-					Welcome ${pageContext.request.userPrincipal.name} | <a
-						onclick="document.forms['logoutForm'].submit()">Logout</a>
+					<spring:message code='home.welcome' /> ${pageContext.request.userPrincipal.name} | <a
+						onclick="document.forms['logoutForm'].submit()"><spring:message code='home.logout' /></a>
 				</h2>
 			</c:if>
 		</div>
@@ -61,19 +61,18 @@
 							alt="no-image" style="width: 100%">
 						<div class="w3-container w3-center" style="padding: 0">
 							<h2>${currentFaculty.name}</h2>
-							<p>Quantity of student: ${currentFaculty.quantityOfStudents}</p>
+							<p><spring:message code='home.quantity_of_student' /> ${currentFaculty.quantityOfStudents}</p>
 							<p>
-								List of subjects:<br>
+								<spring:message code='home.list_of_subjects' /><br>
 							</p>
-							<c:forEach items="${currentFaculty.subjects}"
-								var="currentSubject">
-								<p>${currentSubject}</p>
+							<c:forEach items="${currentFaculty.subjects}" var="currentSubject">
+								<p>${currentSubject.title}</p>
 							</c:forEach>
 							
-							<a href="rating?currentFacultyId=${currentFaculty.id}">Show rating</a>
+							<a href="rating?currentFacultyId=${currentFaculty.id}"><spring:message code='home.show_rating' /></a>
 							<br>
 							<security:authorize access="hasRole('ROLE_USER')">
-								<a href="entrantRegistration?currentFacultyId=${currentFaculty.id}&currentUserEmail=${pageContext.request.userPrincipal.name}">Choose this faculty</a>
+								<a href="entrantRegistration?currentFacultyId=${currentFaculty.id}&currentUserEmail=${pageContext.request.userPrincipal.name}"><spring:message code='home.choose_this_faculty' /></a>
 							</security:authorize>
 						</div>
 					</div>
@@ -82,9 +81,7 @@
 		</c:if>
 	</div>
 
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 </body>
 
 </html>

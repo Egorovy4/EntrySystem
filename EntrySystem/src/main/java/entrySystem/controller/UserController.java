@@ -64,7 +64,6 @@ public class UserController {
     	modelAndView.setViewName("createFaculty");
     	modelAndView.addObject("subjects", Subjects.values());
     	modelAndView.addObject("faculty", new Faculty());
-    
     	return modelAndView;
     }
 }

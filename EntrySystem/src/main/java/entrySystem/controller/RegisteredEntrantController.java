@@ -41,6 +41,7 @@ public class RegisteredEntrantController {
 		registeredEntrant.setUser(user);
 		
 		ModelAndView modelAndView = new ModelAndView("entrantRegistration");
+		
 		modelAndView.addObject("registeredEntrant", registeredEntrant);
 		return modelAndView;
 	}

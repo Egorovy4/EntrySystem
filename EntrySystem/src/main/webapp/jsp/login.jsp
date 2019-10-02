@@ -100,6 +100,7 @@
 						<select id="locales">
 							<option value="en"><spring:message code='login.english' /></option>
 							<option value="ua"><spring:message code='login.ukrainian' /></option>
+							<option value="sk"><spring:message code='login.slovak' /></option>
 						</select>
 					</fieldset>
 				</div>

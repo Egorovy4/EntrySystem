@@ -158,6 +158,6 @@ public class RegisteredEntrant {
 
 	@Override
 	public String toString() {
-		return "Statement [id=" + id + ", user=" + user + ", faculty=" + faculty + ", marks=" + marks + "]";
+		return "RegisteredEntrant [id=" + id + ", user=" + user + ", faculty=" + faculty + ", marks=" + marks + "]";
 	}
 }

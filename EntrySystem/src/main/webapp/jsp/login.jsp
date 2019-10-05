@@ -72,7 +72,17 @@
 		<article class="card-body">
 			<h4 class="card-title text-center mb-4 mt-1 form-heading"><spring:message code='login.title' /></h4>
 			<hr>
-			<p class="text-success text-center" ${error != null ? 'has-error' : ''}><span>${message}</span><span>${error}</span></p>
+			<p class="text-success text-center" ${error != null ? 'has-error' : ''}>
+				<c:if test="${error != null}">
+					<spring:message code='error.message' var="error" />
+					<span>${error}</span>	
+				</c:if>
+				
+				<c:if test="${message != null}">
+					<spring:message code='logout.message' var="message" />
+					<span>${message}</span>	
+				</c:if>
+			</p>
 			
 			<form method="POST" action="${contextPath}/login" class="form-signin">
 				<div class="form-group" ${error != null ? 'has-error' : ''}>

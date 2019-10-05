@@ -1,5 +1,7 @@
 package entrySystem.controller;
 
+import java.util.Locale;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,7 +34,7 @@ public class UserController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
-
+    	
         if (bindingResult.hasErrors()) {
             return "registration";
         }
@@ -41,13 +43,13 @@ public class UserController {
     }
 
     @RequestMapping(value = {"/", "/login"}, method = RequestMethod.GET)
-    public String login(Model model, String error, String logout) {
+    public String login(Locale locale, Model model, String error, String logout) {
         if (error != null)
-            model.addAttribute("error", "Your username and password is invalid.");
+            model.addAttribute("error", "Error exists");
 
         if (logout != null)
-            model.addAttribute("message", "You have been logged out successfully.");
-
+            model.addAttribute("message", "Logout = true");
+        
         return "login";
     }
 

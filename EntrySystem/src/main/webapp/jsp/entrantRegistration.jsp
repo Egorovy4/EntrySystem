@@ -6,42 +6,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-
-<title><spring:message code='entrant_registration.title' /></title>
-
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
-<style>
-.fl_upld {
-	/* width: 300px; */
-	margin-top: 10px;
-	text-align: center;
-}
-
-#fl_inp {
-	display: none;
-}
-
-.fl_upld label {
-	cursor: pointer;
-	background: #009688;
-	border-radius: 3px;
-	padding: 10px 25px;
-	color: #fff;
-	font-weight: bold;
-	text-align: center;
-}
-
-.fl_upld label:hover {
-	background: #00A688;
-}
-
-#fl_nm {
-	margin-top: 8px;
-	color: #009688;
-}
-</style>
+	<meta charset="utf-8">
+	
+	<title><spring:message code='entrant_registration.title' /></title>
+	
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	
+	<style>
+	.fl_upld {
+		/* width: 300px; */
+		margin-top: 10px;
+		text-align: center;
+	}
+	
+	#fl_inp {
+		display: none;
+	}
+	
+	.fl_upld label {
+		cursor: pointer;
+		background: #009688;
+		border-radius: 3px;
+		padding: 10px 25px;
+		color: #fff;
+		font-weight: bold;
+		text-align: center;
+	}
+	
+	.fl_upld label:hover {
+		background: #00A688;
+	}
+	
+	#fl_nm {
+		margin-top: 8px;
+		color: #009688;
+	}
+	</style>
 </head>
 
 <body>
@@ -49,26 +49,35 @@
 	<div class="w3-sidebar w3-light-grey w3-bar-block" style="width: 10%">
 		<h3 class="w3-bar-item"><spring:message code='entrant_registration.menu' /></h3> 
 		<a href="/home" class="w3-bar-item w3-button"><spring:message code='entrant_registration.home' /></a>
+		
+		<div class="container" style="margin-left: 1%">
+			<c:if test="${pageContext.request.userPrincipal.name != null}">
+				<form id="logoutForm" method="POST" action="${contextPath}/logout">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				</form>
+				
+				<a class="w3-bar-item w3-button" onclick="document.forms['logoutForm'].submit()"><spring:message code='home.logout' /></a>
+			</c:if>
+		</div>
 	</div>
 
 	<!-- Page Content -->
 	<div style="margin-left: 10%">
 		<div class="w3-container w3-teal">
-			<h1><spring:message code='entrant_registration.entrant_registration' /></h1>
+			<h2><spring:message code='entrant_registration.entrant_registration' /></h2>
 		</div>
 
-		<div class="w3-container">
-			<form:form method="POST" action="${contextPath}/addMarks"
-				enctype="multipart/form-data">
+		<div class="w3-container" style="padding: 0px; width: 24%; margin-left: 38%; margin-top: 3%;">
+			<form:form method="POST" action="${contextPath}/addMarks" enctype="multipart/form-data">
 				<table>
 					<tr>
-						<th><spring:message code='entrant_registration.enter_marks' /></th>
+						<th style="padding-bottom: 15px; text-align: left; font-style: italic;"><spring:message code='entrant_registration.enter_marks' /></th>
 					</tr>
 
 					<c:forEach items="${registeredEntrant.faculty.subjects}" var="currentSubject" varStatus="status">
 						<tr>
-							<td>${currentSubject.title}</td>
-							<td><input type="number" name="marks" /></td>
+							<td style="padding-right: 36px; font-style: italic;">${currentSubject.title}</td>
+							<td><input type="number" name="marks" required="required" min="130" max="200" step="0.01" /></td>
 						</tr>
 					</c:forEach>
 
@@ -78,8 +87,7 @@
 					</tr>
 					
 					<tr>
-						<td><spring:message code='entrant_registration.upload_photo' /></td>
-						<!-- <td><input type="file" name="image" /></td> -->
+						<td style="font-style: italic;"><spring:message code='entrant_registration.upload_photo' /></td>
 						
 						<td>
 							<div class="fl_upld">
@@ -91,7 +99,11 @@
 					</tr>
 
 					<tr>
-						<td><input type="submit" value="<spring:message code='entrant_registration.register' />" /></td>
+						<td>
+							<div class="fl_upld">
+								<label style="float: left;"><input id="fl_inp" type="submit"><spring:message code='entrant_registration.register' /></label>
+							</div>
+						</td>
 					</tr>
 
 				</table>

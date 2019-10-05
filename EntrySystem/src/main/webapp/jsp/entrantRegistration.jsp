@@ -14,9 +14,8 @@
 	
 	<style>
 	.fl_upld {
-		/* width: 300px; */
+		width: 244px;
 		margin-top: 10px;
-		text-align: center;
 	}
 	
 	#fl_inp {
@@ -67,7 +66,7 @@
 			<h2><spring:message code='entrant_registration.entrant_registration' /></h2>
 		</div>
 
-		<div class="w3-container" style="padding: 0px; width: 24%; margin-left: 38%; margin-top: 3%;">
+		<div class="w3-container" style="padding: 0px; width: 28%; margin-left: 36%; margin-top: 3%;">
 			<form:form method="POST" action="${contextPath}/addMarks" enctype="multipart/form-data">
 				<table>
 					<tr>
@@ -77,7 +76,7 @@
 					<c:forEach items="${registeredEntrant.faculty.subjects}" var="currentSubject" varStatus="status">
 						<tr>
 							<td style="padding-right: 36px; font-style: italic;">${currentSubject.title}</td>
-							<td><input type="number" name="marks" required="required" min="130" max="200" step="0.01" /></td>
+							<td><input type="number" name="marks" required="required" min="130" max="200" step="0.01" style="width: 206px;"/></td>
 						</tr>
 					</c:forEach>
 

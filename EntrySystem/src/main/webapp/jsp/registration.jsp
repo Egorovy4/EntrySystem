@@ -120,11 +120,7 @@ hr {
 					<spring:message code='registration.password' var="password" />
 					<spring:message code='password.validation' var="pv" />
 					<spring:message code='password.confirmation' var="pc" />
-					<form:input type="password" path="password" id="password" class="form-control"
-						placeholder='${password}' 
-						required="required"
-						pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-						title='${pv}'></form:input>
+					<form:input type="password" path="password" id="password" class="form-control" placeholder='${password}' required="required" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title='${pv}'></form:input>
 					<form:errors path="password"></form:errors>
 				</div>
 			</spring:bind>
@@ -132,12 +128,9 @@ hr {
 			<spring:bind path="passwordConfirm">
 				<div class="form-group ${status.error ? 'has-error' : ''}">
 					<spring:message code='registration.password_confirm' var="password_confirm" />
-					<form:input type="password" path="passwordConfirm"
-						id="confirm_password"
-						class="form-control" placeholder='${password_confirm}'
-						required="required"
-						pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-						title='${pv}'></form:input>
+					<spring:message code='password.validation' var="pv" />
+					<spring:message code='password.confirmation' var="pc" />
+					<form:input type="password" path="passwordConfirm" id="confirm_password" class="form-control" placeholder='${password_confirm}' required="required"></form:input>
 					<form:errors path="passwordConfirm"></form:errors>
 				</div>
 			</spring:bind>
@@ -148,17 +141,13 @@ hr {
 		</form:form>
 	</div>
 	
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	
 	<script>
-		var password = document.getElementById("password"), confirm_password = document
-				.getElementById("confirm_password");
-		
-		var pc = '${pc}';
+ 		var password = document.getElementById("password");
+		var confirm_password = document.getElementById("confirm_password");
 		
 		function validatePassword() {
-			if (password.value != confirm_password.value) {
-				confirm_password.setCustomValidity(pc);
+			if (password.value !== confirm_password.value) {
+				confirm_password.setCustomValidity('${pc}');
 			} else {
 				confirm_password.setCustomValidity('');
 			}
@@ -167,5 +156,7 @@ hr {
 		password.onchange = validatePassword;
 		confirm_password.onkeyup = validatePassword;
 	</script>
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </body>
 </html>
